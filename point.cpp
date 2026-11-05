@@ -23,7 +23,7 @@ class Line{
 };
 int main() {
 	vector<Point> q;
-	q.push_back(Point(2.3, 4.2));
+	q.push_back(Point(2.5, 4.2));
 	q.push_back(Point(3.2, 4.5));
 	q.push_back(Point(0, 0));
 	q.push_back(Point(2, 0));
