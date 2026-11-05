@@ -14,11 +14,17 @@ Dynarray(){
 ~Dynarray(){
     delete []data;
 }
+Dynarray(const Dynarray& other){
+    cap=other.cap;
+    len=other.len;
+    data= new int [cap];
+    for(int i=0;i<len;i++) data[i]=other.data[i];
+}
 void push_back(int v){
     if(len==cap){
         int Newcap=cap*2;
         int *Newdata= new int [Newcap];
-        for(int i=0;i<10;i++){
+        for(int i=0;i<len;i++){
             Newdata[i]=data[i];
         }
         delete [] data;
@@ -43,5 +49,8 @@ int main(){
     for(int i=0;i<10;i++) a.push_back(i);
     cout<<"size="<<a.size()<<endl<<"cap="<<a.capitity()<<endl;
     for(int i=0;i<10;i++) cout<<a.at(i)<<' '; 
+    cout<<endl;
+    Dynarray b=a;
+    cout<<b.size()<<endl;
     return 0;
 }
