@@ -20,6 +20,35 @@ Dynarray(const Dynarray& other){
     data= new int [cap];
     for(int i=0;i<len;i++) data[i]=other.data[i];
 }
+Dynarray(Dynarray&& o) noexcept : data(o.data),len(o.len),cap(o.cap){
+    o.len=0;
+    o.cap=0;
+    o.data=nullptr;
+}
+Dynarray& operator=(const Dynarray& o){
+    if(this!=&o){
+        int* newdata=new int[o.cap];
+        for(int i=0;i<o.len;i++)
+        newdata[i]=o.data[i];
+        delete[] data;
+        data=newdata;
+        cap=o.cap;
+        len=o.len;
+    }
+    return *this;
+}
+Dynarray& operator=(Dynarray&& o) noexcept {
+    if(this!=&o){
+        delete [] data;
+        cap=o.cap;
+        o.cap=0;
+        len=o.len;
+        o.len=0;
+        data=o.data;
+        o.data=nullptr;
+    }
+      return *this;
+}
 void push_back(int v){
     if(len==cap){
         int Newcap=cap*2;
@@ -52,5 +81,12 @@ int main(){
     cout<<endl;
     Dynarray b=a;
     cout<<b.size()<<endl;
+    Dynarray m;
+    for(int i=0;i<5;i++) m.push_back(i);
+    Dynarray n=m;
+    Dynarray t=std::move(m);
+    n=t;
+    t=std::move(n);
+    cout<<"n:"<<n.size()<<endl<<"t:"<<t.size()<<endl;
     return 0;
 }
