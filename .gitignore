@@ -2,3 +2,5 @@ point
 bank
 file
 *.o
+a.out
+build/
